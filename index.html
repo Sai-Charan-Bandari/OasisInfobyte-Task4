@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="login">
+        <button onclick="set(1)">new user? register here</button>
+        <h2>Login</h2>
+        <div >
+            <input id="i1" name="e" type="email" placeholder="email">
+            <input id="i2" name="p" type="password" placeholder="password">
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <div class="register">
+        <button onclick="set(0)">already registered? login here</button>
+        <h2>Register</h2>
+        <div >
+            <input id="i3" name="n" type="text" placeholder="username">
+            <input id="i4" name="e" type="email" placeholder="email">
+            <input id="i5" name="p" type="password" placeholder="password">
+            <button onclick="register()">Register</button>
+        </div>
+    </div>
+    
+    <div class="data">
+        <button onclick="set(0)">logout</button>
+        <h3></h3>
+        <h3></h3>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+<script>
+    // Create a variable to reference the bcryptjs library
+    var bcrypt = dcodeIO.bcrypt;
+    let users={}
+    let salt="$2a$10$Zn4nwX8EC85JIeOpuofSnu"
+    let regexMail = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/; 
+    let regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+
+    function set(e){
+        if(e==0){
+            document.getElementsByClassName('register')[0].style.display='none'
+            document.getElementsByClassName('data')[0].style.display='none'
+            document.getElementsByClassName('login')[0].style.display='block'
+        }else if(e==1){
+            document.getElementsByClassName('login')[0].style.display='none'
+            document.getElementsByClassName('data')[0].style.display='none'
+            document.getElementsByClassName('register')[0].style.display='block'
+        }else{
+            document.getElementsByClassName('register')[0].style.display='none'
+            document.getElementsByClassName('login')[0].style.display='none'
+            document.getElementsByClassName('data')[0].style.display='block'
+        }
+        
+    }
+
+    set(0)
+    
+    function login(){
+        let email = document.getElementById("i1").value;
+        let plainPassword = document.getElementById("i2").value;
+        
+        if(email in users){
+                bcrypt.hash(plainPassword, salt, function(err, hash) {
+                    if (err) {
+                        console.error(err);
+                        alert("invalid credentials")
+                    } else if(hash==users[email].password){
+                        set(3)
+                        document.getElementsByTagName('h3')[0].innerHTML=users[email].name
+                        document.getElementsByTagName('h3')[1].innerHTML=email
+                    }else{
+                        alert("invalid credentials")
+                        // console.log(users[email].password)
+                    }
+                });
+        }else{
+            alert("invalid credentials")
+        }
+    }
+
+    function register(){
+        let email = document.getElementById("i4").value;
+        if(!regexMail.test(email)){
+            alert("invalid email")
+            return
+        }
+        let plainPassword = document.getElementById("i5").value;
+        if(!regexPass.test(plainPassword)){
+            alert("Password must contain uppercase,lowercase alphabet,digits and length must be atleast 8 characters")
+            return
+        }
+        if(email in users){
+            alert("email already exists")
+            return
+        }
+        
+            bcrypt.hash(plainPassword, salt, function(err, hash) {
+                if (err) {
+                    console.error(err);
+                    alert("registration failed")
+                } else {
+                    users[email]={name:document.getElementById("i3").value , password:hash}
+                    alert("registration successful")
+                    set(0)
+                }
+            });
+    }
+
+</script>
+</html>
