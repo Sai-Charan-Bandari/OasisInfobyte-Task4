@@ -8,30 +8,65 @@
 </head>
 <body>
     <div class="login">
-        <button onclick="set(1)">new user? register here</button>
-        <h2>Login</h2>
-        <div >
-            <input id="i1" name="e" type="email" placeholder="email">
-            <input id="i2" name="p" type="password" placeholder="password">
-            <button onclick="login()">Login</button>
-        </div>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+              <!-- Tabs Titles -->
+              <h2 class="active"> Log In </h2>
+          
+              <!-- Login Form -->
+              <div>
+                <input type="text" id="i1" class="fadeIn second" name="login" placeholder="email">
+                <input type="password" id="i2" class="fadeIn third" name="login" placeholder="password">
+                <input type="button" onclick="login()" class="fadeIn fourth" value="Log In">
+              </div>
+          
+              <!-- Remind Passowrd -->
+              <div id="formFooter">
+                <button class='switch' onclick="set(1)">new user? register here</button>
+              </div>
+          
+            </div>
+          </div>
     </div>
 
     <div class="register">
-        <button onclick="set(0)">already registered? login here</button>
-        <h2>Register</h2>
-        <div >
-            <input id="i3" name="n" type="text" placeholder="username">
-            <input id="i4" name="e" type="email" placeholder="email">
-            <input id="i5" name="p" type="password" placeholder="password">
-            <button onclick="register()">Register</button>
-        </div>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+              <!-- Tabs Titles -->
+              <h2 class="active"> Register </h2>
+          
+              <!-- Login Form -->
+              <div>
+                <input type="text" id="i3" class="fadeIn second" name="login" placeholder="username">
+                <input type="text" id="i4" class="fadeIn third" name="login" placeholder="email">
+                <input type="password" id="i5" class="fadeIn third" name="login" placeholder="password">
+                <input type="button" onclick="register()" class="fadeIn fourth" value="Register">
+              </div>
+          
+              <!-- Remind Passowrd -->
+              <div id="formFooter">
+                <button class='switch' onclick="set(0)">already registered? login here</button>
+              </div>
+          
+            </div>
+          </div>
+
     </div>
     
     <div class="data">
-        <button onclick="set(0)">logout</button>
-        <h3></h3>
-        <h3></h3>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+              <!-- Tabs Titles -->
+              <h2 class="active">Welcome</h2>
+          
+              <!-- Login Form -->
+              <div>
+                <input disabled type="text" id="i6" class="fadeIn second" name="login" >
+                <input disabled type="text" id="i7" class="fadeIn third" name="login" >
+                <input type="button" onclick="login()" class="fadeIn fourth" value="Log Out">
+              </div>
+            </div>
+          </div>
     </div>
 </body>
 
@@ -75,8 +110,8 @@
                         alert("invalid credentials")
                     } else if(hash==users[email].password){
                         set(3)
-                        document.getElementsByTagName('h3')[0].innerHTML=users[email].name
-                        document.getElementsByTagName('h3')[1].innerHTML=email
+                        document.getElementById('i6').value=users[email].name
+                        document.getElementById('i7').value=email
                     }else{
                         alert("invalid credentials")
                         // console.log(users[email].password)
