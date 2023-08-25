@@ -15,9 +15,9 @@
           
               <!-- Login Form -->
               <div>
-                <input type="text" id="i1" class="fadeIn second" name="login" placeholder="email">
-                <input type="password" id="i2" class="fadeIn third" name="login" placeholder="password">
-                <input type="button" onclick="login()" class="fadeIn fourth" value="Log In">
+                <input type="text" id="i1" name="login" placeholder="email">
+                <input type="password" id="i2"  name="login" placeholder="password">
+                <input type="button" onclick="login()" value="Log In">
               </div>
           
               <!-- Remind Passowrd -->
@@ -37,10 +37,10 @@
           
               <!-- Login Form -->
               <div>
-                <input type="text" id="i3" class="fadeIn second" name="login" placeholder="username">
-                <input type="text" id="i4" class="fadeIn third" name="login" placeholder="email">
-                <input type="password" id="i5" class="fadeIn third" name="login" placeholder="password">
-                <input type="button" onclick="register()" class="fadeIn fourth" value="Register">
+                <input type="text" id="i3" name="login" placeholder="username">
+                <input type="text" id="i4" name="login" placeholder="email">
+                <input type="password" id="i5" name="login" placeholder="password">
+                <input type="button" onclick="register()"  value="Register">
               </div>
           
               <!-- Remind Passowrd -->
@@ -61,9 +61,9 @@
           
               <!-- Login Form -->
               <div>
-                <input disabled type="text" id="i6" class="fadeIn second" name="login" >
-                <input disabled type="text" id="i7" class="fadeIn third" name="login" >
-                <input type="button" onclick="login()" class="fadeIn fourth" value="Log Out">
+                <input disabled type="text" id="i6"  name="login" >
+                <input disabled type="text" id="i7" name="login" >
+                <input type="button" onclick="set(0)"  value="Log Out">
               </div>
             </div>
           </div>
@@ -109,6 +109,8 @@
                         console.error(err);
                         alert("invalid credentials")
                     } else if(hash==users[email].password){
+                        document.getElementById("i1").value=""
+                        document.getElementById("i2").value=""
                         set(3)
                         document.getElementById('i6').value=users[email].name
                         document.getElementById('i7').value=email
@@ -145,6 +147,9 @@
                 } else {
                     users[email]={name:document.getElementById("i3").value , password:hash}
                     alert("registration successful")
+                    document.getElementById("i3").value=""
+                    document.getElementById("i4").value=""
+                    document.getElementById("i5").value=""
                     set(0)
                 }
             });
